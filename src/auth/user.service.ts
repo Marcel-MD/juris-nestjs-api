@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { UserDto } from './user.dto';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
+import { Role } from './role.enum';
 
 @Injectable()
 export class UserService {
@@ -54,6 +55,7 @@ export class UserService {
 
     return await this.userRepository.save({
       ...body,
+      roles: [Role.User],
       password: await this.authService.hashPassword(body.password),
       creationDate: Date(),
     });

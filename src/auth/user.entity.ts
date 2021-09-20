@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from './role.enum';
 
 @Entity()
 export class User {
@@ -12,6 +13,9 @@ export class User {
   @Column()
   @Exclude()
   password: string;
+
+  @Column('jsonb', { nullable: true })
+  roles: Role[];
 
   @Column()
   creationDate: Date;
