@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -35,7 +36,16 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.userService.findOne(id);
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    return await this.userService.delete(id);
   }
 }

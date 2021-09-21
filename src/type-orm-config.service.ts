@@ -10,7 +10,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       port: parseInt(process.env.DB_PORT) || 5432,
       username: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASSWORD || 'password',
-      database: process.env.DB_DATABASE || 'justjust',
+      database: process.env.DB_DATABASE || 'juris',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: eval(process.env.PRODUCTION) ? false : true,
     };
