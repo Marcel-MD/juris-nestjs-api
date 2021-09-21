@@ -8,7 +8,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Strategy } from 'passport-local';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User } from '../user.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

@@ -8,10 +8,10 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Role } from './role.enum';
-import { Roles } from './roles.decorator';
-import { RolesGuard } from './roles.guard';
+import { Roles } from './decorators/roles.decorator';
+import { RolesGuard } from './guards/roles.guard';
 import { UserDto } from './user.dto';
 import { UserService } from './user.service';
 
