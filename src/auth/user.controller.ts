@@ -15,7 +15,9 @@ import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './guards/roles.guard';
 import { UserDto } from './user.dto';
 import { UserService } from './user.service';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('/users')
 export class UserController {
   constructor(
@@ -28,6 +30,7 @@ export class UserController {
     return this.userService.create(input);
   }
 
+  @ApiBearerAuth()
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
@@ -35,6 +38,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @ApiBearerAuth()
   @Get(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
@@ -42,6 +46,7 @@ export class UserController {
     return await this.userService.findOne(id);
   }
 
+  @ApiBearerAuth()
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)

@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Role } from './role.enum';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class User {

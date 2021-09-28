@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Inject,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,6 +14,8 @@ import { Role } from './role.enum';
 
 @Injectable()
 export class UserService {
+  private readonly logger = new Logger(UserService.name);
+
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -53,6 +56,8 @@ export class UserService {
       throw new BadRequestException(['Account with this email already exists']);
     }
 
+    this.logger.debug('Creating new user ' + body.email + ' ...');
+
     return await this.userRepository.save({
       ...body,
       roles: [Role.User],
@@ -67,6 +72,8 @@ export class UserService {
     if (!user) {
       throw new NotFoundException();
     }
+
+    this.logger.debug('Deleting user ' + user.email + ' ...');
 
     await this.userRepository.remove(user);
   }
