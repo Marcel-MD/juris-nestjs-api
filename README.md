@@ -32,6 +32,6 @@ $ npm install
 $ npm run start
 ```
 
-## Check if it works
+## Swagger UI
 
-Go to [localhost](http://localhost:3000/), you should see `Hello World!`.
+To access Swagger UI go to [localhost:3000/api](http://localhost:3000/api).
