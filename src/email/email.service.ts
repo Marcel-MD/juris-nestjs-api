@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
 import { ConfigService } from '@nestjs/config';
 
-// Work in Progress! Don't use this service yet!
 @Injectable()
 export default class EmailService {
   private nodemailerTransport: Mail;
+  private readonly logger = new Logger(EmailService.name);
+
   constructor(private readonly configService: ConfigService) {
     this.nodemailerTransport = createTransport({
       service: configService.get('EMAIL_SERVICE'),
@@ -16,7 +17,18 @@ export default class EmailService {
       },
     });
   }
-  sendMail(options: Mail.Options) {
-    return this.nodemailerTransport.sendMail(options);
+
+  async sendMail(html: string, subject: string, to: string) {
+    const info = await this.nodemailerTransport.sendMail({
+      from: '"Juris ⚖️" <' + this.configService.get('EMAIL_USER') + '>',
+      to: to,
+      subject: subject,
+      html: html,
+    });
+
+    this.logger.debug('Email sent:');
+    console.log(info);
+
+    return info;
   }
 }
