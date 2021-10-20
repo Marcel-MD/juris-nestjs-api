@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
 import { ConfigService } from '@nestjs/config';
@@ -8,7 +8,10 @@ export default class EmailService {
   private nodemailerTransport: Mail;
   private readonly logger = new Logger(EmailService.name);
 
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    @Inject(ConfigService)
+    private readonly configService: ConfigService,
+  ) {
     this.nodemailerTransport = createTransport({
       service: configService.get('EMAIL_SERVICE'),
       auth: {
