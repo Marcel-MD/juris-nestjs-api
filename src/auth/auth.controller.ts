@@ -19,7 +19,9 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   async login(@CurrentUser() user: User, @Body() input: UserDto) {
     return {
+      ...user,
       token: this.authService.generateToken(user),
+      password: '',
     };
   }
 
