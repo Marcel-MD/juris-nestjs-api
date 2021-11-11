@@ -73,7 +73,7 @@ export class UserService {
       throw new NotFoundException();
     }
 
-    this.logger.debug('Deleting user ' + user.email + ' ...');
+    this.logger.warn('Deleting user ' + user.email + ' ...');
 
     await this.userRepository.remove(user);
   }
