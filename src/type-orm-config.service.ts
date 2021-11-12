@@ -6,6 +6,7 @@ import { Profile } from './profile/profile.entity';
 import { Review } from './profile/reviews/review.entity';
 import { Education } from './profile/education/education.entity';
 import { Experience } from './profile/experience/experience.entity';
+import { Appointment } from './appointment/appointment.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -22,7 +23,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: this.configService.get<string>('DB_USER', 'postgres'),
       password: this.configService.get<string>('DB_PASSWORD', 'password'),
       database: this.configService.get<string>('DB_DATABASE', 'juris'),
-      entities: [User, Profile, Review, Education, Experience],
+      entities: [User, Profile, Review, Education, Experience, Appointment],
       synchronize: true,
     };
   }
