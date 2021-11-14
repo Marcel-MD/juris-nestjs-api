@@ -29,6 +29,7 @@ import { Sector } from './dto/sector.enum';
 import { Type } from './dto/type.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserService } from 'src/auth/user.service';
+import { City } from './dto/city.enum';
 
 @ApiTags('Profiles')
 @Controller('/profiles')
@@ -39,6 +40,21 @@ export class ProfilesController {
     @Inject(UserService)
     private readonly userService: UserService,
   ) {}
+
+  @Get('types')
+  async getTypes() {
+    return Type;
+  }
+
+  @Get('sectors')
+  async getSectors() {
+    return Sector;
+  }
+
+  @Get('cities')
+  async getCities() {
+    return City;
+  }
 
   @Post()
   @ApiBearerAuth()

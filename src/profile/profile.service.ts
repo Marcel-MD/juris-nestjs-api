@@ -96,7 +96,7 @@ export class ProfileService {
       .createQueryBuilder('profile')
       .where('verified = :type', { type: true });
     if (filter.type) {
-      query.andWhere('profile.type = :type', { type: filter.type });
+      query.andWhere('profile.type = :type2', { type2: filter.type });
     }
     if (filter.location) {
       query.andWhere('profile.sector = :loc', { loc: filter.location });
