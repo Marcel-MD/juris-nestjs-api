@@ -25,4 +25,7 @@ export class Appointment {
 
   @Column()
   accepted: boolean;
+
+  @Column()
+  description: string;
 }
