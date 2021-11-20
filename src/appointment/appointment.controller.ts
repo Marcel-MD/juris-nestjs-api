@@ -40,7 +40,7 @@ export class AppointmentController {
   }
 
   @ApiBearerAuth()
-  @Put('accept/:id')
+  @Put(':id')
   @UseGuards(JwtAuthGuard)
   async accept(
     @Param('id', ParseIntPipe) id: number,

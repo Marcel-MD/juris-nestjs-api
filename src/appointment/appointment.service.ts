@@ -43,8 +43,10 @@ export class AppointmentService {
     });
   }
 
-  async accept(idAppointment: number, user: User): Promise<Appointment> {
-    const appointment = await this.appointmentRepository.findOne(idAppointment);
+  async accept(id: number, user: User): Promise<Appointment> {
+    const appointment: Appointment = await this.appointmentRepository.findOne(
+      id,
+    );
 
     if (!appointment) {
       throw new NotFoundException();
