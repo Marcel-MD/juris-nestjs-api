@@ -23,7 +23,7 @@ export class CreateReviewDto {
   phoneNumber: number;
 
   @IsPositive()
-  @Max(5)
+  @Max(10)
   rating: number;
 
   @IsString()
