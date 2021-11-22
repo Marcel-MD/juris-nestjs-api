@@ -127,7 +127,7 @@ export class ProfilesController {
     const events = await this.profileService.findAllValidatedPaginated({
       total: true,
       currentPage: filter.page,
-      limit: 2,
+      limit: 4,
     });
     return events;
   }
@@ -162,7 +162,7 @@ export class ProfilesController {
         {
           total: true,
           currentPage: filter.page,
-          limit: 2,
+          limit: 4,
         },
         filter,
       );

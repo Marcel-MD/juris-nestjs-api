@@ -1,4 +1,4 @@
-import { Length, IsString } from 'class-validator';
+import { Length, IsString, IsMobilePhone } from 'class-validator';
 
 export class CreateAppointmentDto {
   @IsString()
@@ -7,7 +7,7 @@ export class CreateAppointmentDto {
   @IsString()
   lastName: string;
 
-  @IsString()
+  @IsMobilePhone()
   phoneNumber: string;
 
   @IsString()
