@@ -8,7 +8,7 @@ export class CreateAppointmentDto {
   lastName: string;
 
   @IsMobilePhone()
-  phoneNumber: string;
+  phoneNumber: number;
 
   @IsString()
   @Length(25, 300)

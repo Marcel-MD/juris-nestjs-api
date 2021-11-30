@@ -18,7 +18,7 @@ export class Appointment {
   userId: number;
 
   @Column()
-  phoneNumber: string;
+  phoneNumber: number;
 
   @Column()
   email: string;
