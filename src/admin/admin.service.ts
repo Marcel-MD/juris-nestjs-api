@@ -1,13 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import EmailService from 'src/email/email.service';
 import { Profile } from 'src/profile/profile.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class AdminService {
+  private readonly logger = new Logger(AdminService.name);
+
   constructor(
     @InjectRepository(Profile)
     private readonly profileRepository: Repository<Profile>,
+    @Inject(EmailService)
+    private readonly emailService: EmailService,
   ) {}
 
   public async getUnverifiedProfiles(): Promise<Profile[]> {
@@ -24,7 +29,19 @@ export class AdminService {
     }
 
     profile.verified = true;
-    return await this.profileRepository.save(profile);
+    const p = await this.profileRepository.save(profile);
+
+    try {
+      await this.emailService.sendMailToId(
+        `Hello <b>${profile.firstName}</b>, your profile has been verified, now everyone can find you on our platform!`,
+        'Profile Verified',
+        profile.userId,
+      );
+    } catch {
+      this.logger.debug(`Could not send email to ${profile.userId}`);
+    }
+
+    return p;
   }
 
   public async unverifieProfile(id: number) {
@@ -35,6 +52,18 @@ export class AdminService {
     }
 
     profile.verified = false;
-    return await this.profileRepository.save(profile);
+    const p = await this.profileRepository.save(profile);
+
+    try {
+      await this.emailService.sendMailToId(
+        `Hello <b>${profile.firstName}</b>, your profile verified status has been withdrawn, now your profile is not visible on our platform!`,
+        'Profile Status Updated',
+        profile.userId,
+      );
+    } catch {
+      this.logger.debug(`Could not send email to ${profile.userId}`);
+    }
+
+    return p;
   }
 }
