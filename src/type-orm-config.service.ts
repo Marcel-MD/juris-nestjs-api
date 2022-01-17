@@ -22,7 +22,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         type: 'postgres',
         url: this.configService.get<string>('DATABASE_URL'),
         entities: [User, Profile, Review, Education, Experience, Appointment],
-        synchronize: false,
+        synchronize: true,
         ssl: true,
         extra: {
           ssl: {
