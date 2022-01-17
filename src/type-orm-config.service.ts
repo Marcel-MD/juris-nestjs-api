@@ -16,6 +16,15 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   ) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    if (this.configService.get<string>('DATABASE_URL')) {
+      return {
+        type: 'postgres',
+        url: this.configService.get<string>('DATABASE_URL'),
+        entities: [User, Profile, Review, Education, Experience, Appointment],
+        synchronize: false,
+      };
+    }
+
     return {
       type: 'postgres',
       host: this.configService.get<string>('DB_HOST', '127.0.0.1'),
