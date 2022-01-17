@@ -16,15 +16,23 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   ) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    // For Heroku Postgres
     if (this.configService.get<string>('DATABASE_URL')) {
       return {
         type: 'postgres',
         url: this.configService.get<string>('DATABASE_URL'),
         entities: [User, Profile, Review, Education, Experience, Appointment],
         synchronize: false,
+        ssl: true,
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        },
       };
     }
 
+    // For anything else
     return {
       type: 'postgres',
       host: this.configService.get<string>('DB_HOST', '127.0.0.1'),
